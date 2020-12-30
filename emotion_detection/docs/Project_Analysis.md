@@ -6,17 +6,17 @@ As a digital advertiser, I want to attract more customers and increase revenue.
 
 ### Problem and Solution Formulation
 
-# **What is the problem?**
+#### **What is the problem?**
 *Informal description:*
 * I need a  system that should be able to detect the satisfaction level of the customers based on the review on the customer on the given product.
 
-# **Formalism:** 
+#### **Formalism:** 
 
 * Task(T): To detect the satisfaction level of the customers.
 * Experience(E): Comments/feedback obtained from customers.
 * Performance(P): Accuracy, Precision, recall
 
-# **Assumptions:**
+#### **Assumptions:**
 
 * The system will fail for sarcastic comments or jokes. 
 * The sentiments word count in the given comments/feedback will matter for the model.
@@ -35,5 +35,6 @@ As a digital advertiser, I want to attract more customers and increase revenue.
 
 *How would I solve the problem?Explore how you would solve the problem manually.*
 By looking at each comments/feedbacks manually and analyzing its sentiment.
+
 *Explore how you would solve the problem by using machine learning tools.*
 It can be formulated as a Machine Learning Problem and can be solved in the same ways as we do in the sentiment analysis for Movie review or says twits.
