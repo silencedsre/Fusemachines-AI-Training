@@ -1,4 +1,4 @@
-##About the Company
+## About the Company
 
 The A.S. Inc. is a Digital Advertising Company. 
 
@@ -15,14 +15,14 @@ Help clients create meaningful relationships with their audience and build bette
 **What should we know about the domain the company operates in?**
 We understand the client's business domain areas and requirements to create a tailored-fit solution for their individual business needs for digital marketing.
 
-##Context on the Product
+## Context on the Product
 
 **Why do you need this new system? What is the business need?**
 
 We previously did not have knowledge of what customers thought of our product in a better way. On the basis of that feedback/comment we want to improve the customer experience, to create a lasting bond and increase more customers.
 
 
-##About the new system/product
+## About the new system/product
 
 **What are the basic, crucial needs of the new software?**\
 The system should be able to detect the satisfaction level of the customers based on the review on the customer on the given product.
@@ -38,13 +38,13 @@ The new system should be able to determine the emotion of a customer based on th
 
 Accurately predict the given review with accuracy 80%.
 
-##System Usage
+## System Usage
 
 **Which of our staff will be using or involved in the product the most?**
 
 **Will the system need to integrate with any other type of software?**
 
-##About the Data
+## About the Data
 
 **What data do you have that might be related, in any way, to the problem being solved?**
 We have csv data. One column includes review or comment and the other column includes their corresponding labels.
@@ -56,16 +56,14 @@ The data is stored in the MongoDB database. We have manually labelled our data b
 Yes, we have a dedicated team for data acquisition and data labelling.
 
 
-
-
-##Caveats
+## Caveats
 
 **What are the constraints on the system being built (resourcing, timing, etc)?**
 You can use either multiple CPUs or a single GPU with GTX1060Ti. The project should complete 1 million dollar.
 
 **What is the strategy for our organisation? [One year, five years]. Are there considerations that need to be taken into account?**
 
-##General
+## General
 
 **Do you have a timeline in mind?**\
 The project should be completed within 15 days.
