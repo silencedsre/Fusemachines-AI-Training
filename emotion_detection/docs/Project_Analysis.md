@@ -34,7 +34,7 @@ As a digital advertiser, I want to attract more customers and increase revenue.
 * It will improve the customer experience, helps in creating a lasting bond and increase more customers.
 
 *How would I solve the problem?Explore how you would solve the problem manually.*
-By looking at each comments/feedbacks manually and analyzing its sentiment.
+* By looking at each comments/feedbacks manually and analyzing its sentiment.
 
 *Explore how you would solve the problem by using machine learning tools.*
-It can be formulated as a Machine Learning Problem and can be solved in the same ways as we do in the sentiment analysis for Movie review or says twits.
+* It can be formulated as a Machine Learning Problem and can be solved in the same ways as we do in the sentiment analysis for Movie review or says twits.
