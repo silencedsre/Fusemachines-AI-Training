@@ -14,5 +14,5 @@ RUN echo "Make sure flask is installed:"
 RUN python -c "import flask"
 
 # The code to run when container is started:
-COPY app.py .
+COPY . .
 ENTRYPOINT ["conda", "run", "-n", "Fusemachines-AI-Training", "python", "app.py"]
