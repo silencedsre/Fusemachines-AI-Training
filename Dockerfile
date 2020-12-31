@@ -1,6 +1,6 @@
 FROM continuumio/miniconda3
 
-WORKDIR /app
+WORKDIR /Fusemachines-AI-Training
 
 # Create the environment:
 COPY environment.yml .
@@ -15,4 +15,9 @@ RUN python -c "import flask"
 
 # The code to run when container is started:
 COPY . .
+
+# Give permission to run script and download dataset
+RUN chmod +x make_dataset.sh
+RUN ./make_dataset.sh
+
 ENTRYPOINT ["conda", "run", "-n", "Fusemachines-AI-Training", "python", "app.py"]
