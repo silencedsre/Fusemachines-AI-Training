@@ -1,5 +1,5 @@
 import pandas as pd
-from emotion_detection.config.config import DATA_PATH
+from config import DATA_PATH
 
 df = pd.read_csv(DATA_PATH)
 print(df.head())
