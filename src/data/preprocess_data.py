@@ -52,7 +52,7 @@ def label_encoding(ser):
 
 
 def preprocess_data(df):
-    df = df.rename(columns={0: "#", 1: "review", 2: "emotion"})
+    df = df.rename(columns={0: "#", 1: "emotion", 2: "review"})
     df = df.drop(["#"], axis=1)
     df['review'] = df['review'].apply(lowercase)
     df['review'] = df['review'].apply(decontraction)
@@ -62,11 +62,11 @@ def preprocess_data(df):
     df['review'] = df['review'].apply(lemmatize_words, args=('n',))
 
     #label encoding on df['emotion']
-    df['emotion'] = label_encoding(df['emotion'])
+    df["emotion"] = label_encoding(df['emotion'])
 
     return df
 
 if __name__ == "__main__":
     df = pd.read_csv(DATA_PATH, header=None)
     df = preprocess_data(df)
-    print(df)
+    print(df.head())
