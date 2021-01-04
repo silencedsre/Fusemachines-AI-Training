@@ -1,7 +1,7 @@
-as_sentiment_analysis
+Emotion Recognition 
 ==============================
 
-A short description of the project.
+This is a multiclass classification problem on emotion recognization. This project is a part of training program at Fusemachines. 
 
 Project Organization
 ------------
