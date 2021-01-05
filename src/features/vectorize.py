@@ -6,7 +6,7 @@ from config.config import DATA_PATH
 
 def split_dataset(df):
     X_train, X_test, y_train, y_test = train_test_split(\
-        df['review'], df['emotion'], test_size=0.2)  #TODO: Iterative-Stratification
+        df['review'], df['emotion'], stratify=df['emotion'],test_size=0.2)  #TODO: Iterative-Stratification
     return X_train, X_test, y_train, y_test
 
 def vectorize(X_train, X_test):
