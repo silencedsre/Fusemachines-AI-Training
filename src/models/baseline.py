@@ -9,9 +9,7 @@ from sklearn.metrics import precision_recall_fscore_support
 import mlflow
 
 def randomforest_clf(X_train_vec, X_test_vec, y_train, y_test):
-    # mlflow.sklearn.autolog()
     clf = RandomForestClassifier(n_estimators=100, random_state=0)
-    # clf.fit(X_train_vec, y_train)
     with mlflow.start_run() as run:
         clf.fit(X_train_vec, y_train)
         y_pred = clf.predict(X_test_vec)
@@ -23,17 +21,14 @@ def randomforest_clf(X_train_vec, X_test_vec, y_train, y_test):
         mlflow.log_metric("micro precision", micro_p_r_f1_s[0])
         mlflow.log_metric("micro recall", micro_p_r_f1_s[1])
         mlflow.log_metric("micro f1 score", micro_p_r_f1_s[2])
-        #mlflow.log_metric("micro support", micro_p_r_f1_s[3])
         # macro average value
         mlflow.log_metric("macro precision", macro_p_r_f1_s[0])
         mlflow.log_metric("macro recall", macro_p_r_f1_s[1])
         mlflow.log_metric("macro f1 score", macro_p_r_f1_s[2])
-        #mlflow.log_metric("macro support", macro_p_r_f1_s[3])
         # weighted average value
         mlflow.log_metric("weighted precision", weighted_p_r_f1_s[0])
         mlflow.log_metric("weighted recall", weighted_p_r_f1_s[1])
         mlflow.log_metric("weighted f1 score", weighted_p_r_f1_s[2])
-        #mlflow.log_metric("weighted support", weighted_p_r_f1_s[3])
     score = f1_score(y_test, y_pred, average='macro', labels=np.unique(y_pred))
     return score, clf_rep
 
