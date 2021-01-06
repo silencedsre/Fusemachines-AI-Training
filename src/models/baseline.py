@@ -25,10 +25,8 @@ if __name__ == "__main__":
     X_train_vec = transform_vectorizer(vectorizer=vect, data=X_train)
     X_test_vec = transform_vectorizer(vectorizer=vect, data=X_test)
     clf, score, clf_rep = multinomial_nv_clf(X_train_vec, X_test_vec, y_train, y_test)
-    print(score)
 
     input = ["I love apples"]
-    # print(type(input))
     vec = transform_vectorizer(vectorizer=vect, data=input)
-    pred = clf.predict(vec)
-    print(pred)
+    pred = clf.predict_proba(vec)
+    print(list(enumerate(pred.ravel().tolist())))
