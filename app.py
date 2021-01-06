@@ -12,5 +12,8 @@ if __name__ == "__main__":
     X_train, X_test, y_train, y_test = split_dataset(df)
     X_train_vec, X_test_vec = vectorize(X_train, X_test)
     with mlflow.start_run():
-        score, clf_rep = multinomial_nv_clf(X_train_vec, X_test_vec, y_train, y_test)
+        clf, score, clf_rep = multinomial_nv_clf(
+            X_train_vec, X_test_vec, y_train, y_test
+        )
         mlflow.log_metric("score", score)
+        mlflow.sklearn.log_model(clf, "sk_models")
