@@ -1,4 +1,3 @@
-import mlflow
 import numpy as np
 import pandas as pd
 from config.config import DATA_PATH
