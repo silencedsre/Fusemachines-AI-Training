@@ -15,7 +15,7 @@ def multinomial_nv_clf(X_train_vec, X_test_vec, y_train, y_test):
     y_pred = clf.predict(X_test_vec)
     score = f1_score(y_test, y_pred, average="macro", labels=np.unique(y_pred))
     clf_rep = classification_report(y_test, y_pred)
-    return score, clf_rep
+    return clf, score, clf_rep
 
 
 if __name__ == "__main__":
@@ -23,6 +23,5 @@ if __name__ == "__main__":
     df = preprocess_data(df)
     X_train, X_test, y_train, y_test = split_dataset(df)
     X_train_vec, X_test_vec = vectorize(X_train, X_test)
-    with mlflow.start_run():
-        score, clf_rep = multinomial_nv_clf(X_train_vec, X_test_vec, y_train, y_test)
-        mlflow.log_metric("score", score)
+    clf, score, clf_rep = multinomial_nv_clf(X_train_vec, X_test_vec, y_train, y_test)
+    print(score)
