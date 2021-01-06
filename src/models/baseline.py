@@ -1,3 +1,4 @@
+import pickle
 import numpy as np
 import pandas as pd
 from config.config import DATA_PATH
@@ -21,7 +22,9 @@ if __name__ == "__main__":
     df = pd.read_csv(DATA_PATH, header=None)
     df = preprocess_data(df)
     X_train, X_test, y_train, y_test = split_dataset(df)
-    vect = fit_vectorizer(X_train)
+    with open("../../temp/vectorizer", "rb") as f:  # TODO change path from config
+        vect = pickle.load(f)
+
     X_train_vec = transform_vectorizer(vectorizer=vect, data=X_train)
     X_test_vec = transform_vectorizer(vectorizer=vect, data=X_test)
     clf, score, clf_rep = multinomial_nv_clf(X_train_vec, X_test_vec, y_train, y_test)
