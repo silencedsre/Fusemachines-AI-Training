@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from config.config import DATA_PATH
 from src.data.preprocess_data import preprocess_data
-from src.features.vectorize import split_dataset, vectorize
+from src.features.vectorize import split_dataset, fit_vectorizer, transform_vectorizer
 from sklearn.metrics import f1_score, classification_report
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.multiclass import OneVsRestClassifier
@@ -21,6 +21,14 @@ if __name__ == "__main__":
     df = pd.read_csv(DATA_PATH, header=None)
     df = preprocess_data(df)
     X_train, X_test, y_train, y_test = split_dataset(df)
-    X_train_vec, X_test_vec = vectorize(X_train, X_test)
+    vect = fit_vectorizer(X_train)
+    X_train_vec = transform_vectorizer(vectorizer=vect, data=X_train)
+    X_test_vec = transform_vectorizer(vectorizer=vect, data=X_test)
     clf, score, clf_rep = multinomial_nv_clf(X_train_vec, X_test_vec, y_train, y_test)
     print(score)
+
+    input = ["I love apples"]
+    # print(type(input))
+    vec = transform_vectorizer(vectorizer=vect, data=input)
+    pred = clf.predict(vec)
+    print(pred)
