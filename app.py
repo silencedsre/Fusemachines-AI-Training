@@ -39,6 +39,8 @@ def predict():
             model = pickle.load(f)
         pred = model.predict_proba(inp_vec)
         pred = pred.ravel().tolist()
+        classes=['anger', 'disgust', 'fear', 'guilt', 'joy', 'sadness', 'shame']
+        pred = {classes[i]: pred[i] for i in range(len(classes))}
         print(pred)
         return json.dumps({"pred": pred})
 
