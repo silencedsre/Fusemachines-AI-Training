@@ -1,14 +1,46 @@
-import pathlib
+import json
 import pickle
 import mlflow
 import pandas as pd
+from flask import Flask, request
+from flask_cors import CORS
 from config.config import BASE_DIR, DATA_PATH, VECTORIZER_PATH, MODEL_PATH
 
 from src.data.preprocess_data import preprocess_data
 from src.features.vectorize import split_dataset, fit_vectorizer, transform_vectorizer
 from src.models.baseline import randomforest_clf
 
-# model_path = "models/randomforest/model.pkl"  # TODO change path from config
+app = Flask(__name__)
+
+CORS(app)
+
+
+@app.route("/")
+def hello():
+    return "Hello World!"
+
+
+@app.route("/predict", methods=["GET", "POST"])
+def predict():
+    if request.method == "GET":
+        return "Prediction"
+
+    if request.method == "POST":
+        text = request.get_data()
+        inp = [text]
+        if not MODEL_PATH.exists():
+            save_trained_model()
+
+        vect = fit_vectorizer()
+
+        input = ["think short time live"]
+        inp_vec = transform_vectorizer(vectorizer=vect, data=inp)
+        with open(MODEL_PATH, "rb") as f:
+            model = pickle.load(f)
+        pred = model.predict_proba(inp_vec)
+        pred = pred.ravel().tolist()
+        print(pred)
+        return json.dumps({"pred": pred})
 
 
 def save_trained_model(vect=None):
@@ -31,14 +63,16 @@ def save_trained_model(vect=None):
 
 
 if __name__ == "__main__":
-    if not MODEL_PATH.exists():
-        save_trained_model()
+    app.run(debug=True)
 
-    vect = fit_vectorizer()
-
-    input = ["think short time live"]
-    inp_vec = transform_vectorizer(vectorizer=vect, data=input)
-    with open(MODEL_PATH, "rb") as f:
-        model = pickle.load(f)
-    pred = model.predict_proba(inp_vec)
-    print(pred)
+    # if not MODEL_PATH.exists():
+    #     save_trained_model()
+    #
+    # vect = fit_vectorizer()
+    #
+    # input = ["think short time live"]
+    # inp_vec = transform_vectorizer(vectorizer=vect, data=input)
+    # with open(MODEL_PATH, "rb") as f:
+    #     model = pickle.load(f)
+    # pred = model.predict_proba(inp_vec)
+    # print(pred)
