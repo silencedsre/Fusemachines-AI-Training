@@ -3,7 +3,7 @@ import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from src.data.preprocess_data import preprocess_data
-from config.config import DATA_PATH
+from config.config import DATA_PATH, VECTORIZER_PATH
 
 
 def split_dataset(df):
@@ -15,7 +15,7 @@ def split_dataset(df):
 
 def fit_vectorizer(X_train):
     vectorizer = TfidfVectorizer().fit(X_train)
-    with open("../../temp/vectorizer", "wb") as f:  # TODO change path from config
+    with open(VECTORIZER_PATH, "wb") as f:
         pickle.dump(vectorizer, f)
 
 
@@ -29,7 +29,7 @@ if __name__ == "__main__":
     df = preprocess_data(df)
     X_train, X_test, y_train, y_test = split_dataset(df)
     fit_vectorizer(X_train)
-    with open("../../temp/vectorizer", "rb") as f:  # TODO change path from config
+    with open(VECTORIZER_PATH, "rb") as f:
         vect = pickle.load(f)
 
     X_train_vec = transform_vectorizer(vectorizer=vect, data=X_train)
