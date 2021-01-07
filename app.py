@@ -28,19 +28,22 @@ CORS(app)
 
 
 class Review(db.Document):
-    comment = db.DictField()
-    # prediction = db.DictField()
+    comment = db.StringField()
+    prediction = db.DictField()
+
     def to_json(self):
-        return {"comment": self.comment}
-        # return {"comment": self.comment, "prediction": self.prediction}
+        return {"comment": self.comment, "prediction": self.prediction}
 
 
 @app.route("/", methods=["GET"])
 def query_records():
-    data = []
+    comment_data = []
+    pred = []
     review = Review.objects()
     for rev in review:
-        data.append(rev.comment)
+        comment_data.append(rev.comment)
+        pred.append(rev.prediction)
+    data = list(zip(comment_data, pred))
     return jsonify({"data": data})
 
 
@@ -59,8 +62,9 @@ def update_record():
         model = pickle.load(f)
     pred = model.predict_proba(inp_vec)
     pred = pred.ravel().tolist()
-    temp = {record["comment"]: pred}
-    review = Review(comment=temp)
+    classes = ["anger", "disgust", "fear", "guilt", "joy", "sadness", "shame"]
+    pred = {classes[i]: pred[i] for i in range(len(classes))}
+    review = Review(comment=record["comment"], prediction=pred)
     review.save()
     return json.dumps({"pred": pred})
 
