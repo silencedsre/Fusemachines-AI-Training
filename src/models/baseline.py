@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from config.config import DATA_PATH, VECTORIZER_PATH
 from src.data.preprocess_data import preprocess_data
-from src.features.vectorize import split_dataset, transform_vectorizer
+from src.features.vectorize import split_dataset, fit_vectorizer, transform_vectorizer
 from sklearn.metrics import f1_score, classification_report
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.multiclass import OneVsRestClassifier
@@ -22,8 +22,8 @@ if __name__ == "__main__":
     df = pd.read_csv(DATA_PATH, header=None)
     df = preprocess_data(df)
     X_train, X_test, y_train, y_test = split_dataset(df)
-    with open(VECTORIZER_PATH, "rb") as f:
-        vect = pickle.load(f)
+
+    vect = fit_vectorizer(X_train)
 
     X_train_vec = transform_vectorizer(vectorizer=vect, data=X_train)
     X_test_vec = transform_vectorizer(vectorizer=vect, data=X_test)
