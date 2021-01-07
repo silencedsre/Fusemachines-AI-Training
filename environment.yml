@@ -240,4 +240,3 @@ dependencies:
     - visions==0.5.0
     - websocket-client==0.57.0
     - xarray==0.16.2
-prefix: /home/shree/ENTER/envs/Fusemachines-AI-Training
