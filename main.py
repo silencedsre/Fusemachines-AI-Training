@@ -5,9 +5,9 @@ from flask_cors import CORS
 from flask_pymongo import PyMongo
 from services.user import create_user, fetch_users, fetch_user, update_user, remove_user
 
-# from settings import shared_components
+from settings import shared_components
 
-shared_components = {"db": None}
+# shared_components = {"db": None}
 
 
 def init_app():
