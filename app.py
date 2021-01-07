@@ -1,19 +1,21 @@
-import mlflow
+import pathlib
 import pickle
+import mlflow
 import pandas as pd
-from config.config import DATA_PATH, VECTORIZER_PATH, MODEL_PATH
+from config.config import BASE_DIR, DATA_PATH, VECTORIZER_PATH, MODEL_PATH
 
 from src.data.preprocess_data import preprocess_data
-from src.features.vectorize import split_dataset, transform_vectorizer
+from src.features.vectorize import split_dataset, fit_vectorizer, transform_vectorizer
 from src.models.baseline import multinomial_nv_clf
 
 # model_path = "models/naive_bayes/model.pkl"  # TODO change path from config
 
 
-def save_trained_model():
+def save_trained_model(vect=None):
     df = pd.read_csv(DATA_PATH, header=None)
     df = preprocess_data(df)
     X_train, X_test, y_train, y_test = split_dataset(df)
+    vect = fit_vectorizer(X_train)
     X_train_vec = transform_vectorizer(vect, X_train)
     X_test_vec = transform_vectorizer(vect, X_test)
 
@@ -29,16 +31,13 @@ def save_trained_model():
 
 
 if __name__ == "__main__":
-    with open(VECTORIZER_PATH, "rb") as f:  # TODO change path from config
-        vect = pickle.load(f)
-
     if not MODEL_PATH.exists():
         save_trained_model()
 
+    vect = fit_vectorizer()
+
     input = ["think short time live"]
     inp_vec = transform_vectorizer(vectorizer=vect, data=input)
-    print(inp_vec.shape)
-    # clf = mlflow.sklearn.load_model(model_path)
     with open(MODEL_PATH, "rb") as f:
         model = pickle.load(f)
     pred = model.predict_proba(inp_vec)
