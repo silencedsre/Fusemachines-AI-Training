@@ -3,9 +3,7 @@ import ast
 from bson.json_util import dumps
 from flask import request, Response
 
-# from settings import shared_components
-
-shared_components = {"db": None}
+from settings import shared_components
 
 
 def create_user():
@@ -13,6 +11,8 @@ def create_user():
        Function to create new users.
        """
     db = shared_components["db"]
+    print("Here!!!!!!!!!!!!!!!")
+    print(f"DB: {db}")
     collection = db.user
     try:
         # Create new users
@@ -36,6 +36,7 @@ def fetch_users():
        """
     db = shared_components["db"]
     collection = db.user
+    print(collection)
     try:
         # Fetch all the record(s)
         records_fetched = collection.find({}, {"_id": 0})
