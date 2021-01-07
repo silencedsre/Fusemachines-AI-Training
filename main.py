@@ -1,78 +1,58 @@
-"""This module will serve the api request."""
+import json
+from flask import Flask, request, jsonify
+from flask_mongoengine import MongoEngine
 
-from flask import Flask, Response, jsonify
-from flask_cors import CORS
-from flask_pymongo import PyMongo
-from services.user import create_user, fetch_users, fetch_user, update_user, remove_user
-
-from settings import shared_components
-
-# shared_components = {"db": None}
-
-
-def init_app():
-
-    app = Flask(__name__)
-    app = create_route(app)
-
-    # Load Config File for DB
-    app.config.from_pyfile("config/config.cfg")
-    CORS(app)
-    mongo = PyMongo(app)
-
-    # Select the database
-    db = mongo.db
-    shared_components["db"] = db
-    return app
+app = Flask(__name__)
+app.config["MONGODB_SETTINGS"] = {
+    "db": "fusemachines_ai_training",
+    "host": "localhost",
+    "port": 27017,
+}
+db = MongoEngine()
+db.init_app(app)
 
 
-def create_route(app):
-    """
-    Adds different rules to the urls
-    """
-    app.add_url_rule(rule="/", view_func=get_initial_response, methods=["GET"])
-    app.add_url_rule(rule="/api/v1/users", view_func=create_user, methods=["POST"])
-    app.add_url_rule(rule="/api/v1/users", view_func=fetch_users, methods=["GET"])
-    app.add_url_rule(
-        rule="/api/v1/users/<user_id>", view_func=fetch_user, methods=["GET"]
-    )
-    app.add_url_rule("/api/v1/users/<user_id>", view_func=update_user, methods=["PUT"])
-    app.add_url_rule(
-        "/api/v1/users/<user_id>", view_func=remove_user, methods=["DELETE"]
-    )
-    return app
+class User(db.Document):
+    name = db.StringField()
+    email = db.StringField()
+
+    def to_json(self):
+        return {"name": self.name, "email": self.email}
 
 
-def get_initial_response():
-    """Welcome message for the API."""
-    # Message to the user
-    message = {
-        "api_version": "v1.0",
-        "status": "200",
-        "message": "Welcome to the Flask API",
-    }
-    # Making the message looks good
-    resp = jsonify(message)
-
-    # Returning the object
-    return resp
+@app.route("/", methods=["GET"])
+def query_records():
+    user = User.objects()
+    return jsonify({"data": user})
 
 
-app = init_app()
+@app.route("/", methods=["POST"])
+def update_record():
+    record = json.loads(request.data)
+    print(record)
+    user = User(name=record["name"], email=record["email"])
+    user.save()
+    return jsonify({"success": "success"})
 
 
-@app.errorhandler(404)
-def page_not_found(e):
-    """Send message to the user with notFound 404 status."""
-    # Message to the user
-    message = "This route is currently not supported."
-    " Please refer API documentation."
-
-    # Sending OK response
-    # Returning the object
-    return Response(message, status=404)
-
+# TODO put and delete
+# @app.route('/', methods=['PUT'])
+# def create_record():
+#     record = json.loads(request.data)
+#     user = User(name=record['name'],
+#                 email=record['email'])
+#     user.save()
+#     return jsonify(user.to_json())
+#
+# @app.route('/', methods=['DELETE'])
+# def delete_record():
+#     record = json.loads(request.data)
+#     user = User.objects(name=record['name']).first()
+#     if not user:
+#         return jsonify({'error': 'data not found'})
+#     else:
+#         user.delete()
+#     return jsonify(user.to_json())
 
 if __name__ == "__main__":
-    # Running app in debug mode
     app.run(debug=True)
