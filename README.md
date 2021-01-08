@@ -51,9 +51,9 @@ Body:
 ```
 
 Sample Output:
-![alt text](imgs/POST example.png)
+![Post Image](POST example.png)
 
 For `GET` request:
 
 Sample Output:
-![alt text](imgs/GET example.png)
+![Get image](GET example.png)
