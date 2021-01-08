@@ -16,7 +16,7 @@ from src.models.baseline import multinomial_nv_clf
 app = Flask(__name__)
 app.config["MONGODB_SETTINGS"] = {  # TODO get from config
     "db": "fusemachines_ai_training_2",
-    "host": "localhost",
+    "host": "db",
     "port": 27017,
 }
 db = MongoEngine()
@@ -89,4 +89,5 @@ def save_trained_model():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
+    # app.run(host='0.0.0.0', port:5000, debug=True)
