@@ -57,3 +57,15 @@ For `GET` request:
 
 Sample Output:
 ![Get image](GET%20example.png)
+
+
+## To-do List
+
+- [x] Download dataset
+- [x] Pre-process data
+- [x] Main Pipeline (Train and Inference/ MLflow)
+- [x] Flask and MongoDB integration
+- [x] Docker/Docker Compose 
+- [ ] CRUD with MongoDB(Update and Delete Remaining)
+- [ ] Frontend for the application
+
