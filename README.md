@@ -51,9 +51,9 @@ Body:
 ```
 
 Sample Output:
-![Post Image](POST example.png)
+![Post Image](POST%20example.png)
 
 For `GET` request:
 
 Sample Output:
-![Get image](GET example.png)
+![Get image](GET%20example.png)
