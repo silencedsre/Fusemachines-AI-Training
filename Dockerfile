@@ -2,11 +2,13 @@ FROM python:3.8
 
 EXPOSE 5000
 
+COPY ./requirements.txt /app/requirements.txt
+
 WORKDIR /app
 
-ADD . /app
-
 RUN pip install -r requirements.txt
+
+ADD . /app
 
 RUN python -m nltk.downloader stopwords
 RUN python -m nltk.downloader wordnet
