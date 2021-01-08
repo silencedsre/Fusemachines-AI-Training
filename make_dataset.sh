@@ -1,3 +1,4 @@
+mkdir data
 cd data
 wget -O ISEAR.csv "https://www.floydhub.com/api/v1/resources/qM4BHN3pNjkfkvYjMMtjU4/ISEAR.csv?content=true&rename=isearcsv"
 #kaggle datasets download -d mirosval/personal-cars-classifieds
